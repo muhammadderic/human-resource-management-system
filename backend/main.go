@@ -1,15 +1,19 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/gin-gonic/gin"
+	"github.com/muhammadderic/hrms/configs"
+	"github.com/muhammadderic/hrms/routes"
+)
 
 func main() {
+	configs.ConnectDB()
+
 	r := gin.Default()
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello Deric",
-		})
-	})
+	apiV1 := r.Group("/api/v1")
+
+	routes.RegisterAuthRoutes(apiV1)
 
 	r.Run(":8080")
 }
