@@ -14,6 +14,7 @@ func main() {
 	apiV1 := r.Group("/api/v1")
 
 	routes.RegisterAuthRoutes(apiV1)
+	routes.RegisterEmployeeRoutes(apiV1)
 
 	r.Run(":8080")
 }
