@@ -7,6 +7,7 @@ import (
 
 type AuthRepository interface {
 	CreateNewUser(user *models.User) *configs.DBResult
+	FindUserByEmail(email string) *models.User
 }
 
 type AuthStore struct{}
@@ -22,4 +23,15 @@ func (s *AuthStore) CreateNewUser(user *models.User) *configs.DBResult {
 		Result: result,
 		Error:  result.Error,
 	}
+}
+
+func (s *AuthStore) FindUserByEmail(email string) *models.User {
+	var user models.User
+	configs.DB.First(
+		&user,
+		"email = ?",
+		email,
+	)
+
+	return &user
 }

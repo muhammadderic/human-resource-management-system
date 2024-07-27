@@ -7,3 +7,9 @@ type User struct {
 	Email    string `gorm:"unique;not null"`
 	Password string `gorm:"not null"`
 }
+
+type UserPayload struct {
+	ID       uint   `gorm:"primaryKey"`
+	Email    string `gorm:"unique;not null"`
+	Password string `gorm:"not null"`
+}
