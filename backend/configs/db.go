@@ -10,6 +10,11 @@ import (
 
 var DB *gorm.DB
 
+type DBResult struct {
+	Result *gorm.DB
+	Error  error
+}
+
 func ConnectDB() {
 	// Open a new connection to the database
 	db, err := gorm.Open(
