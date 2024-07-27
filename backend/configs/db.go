@@ -3,6 +3,7 @@ package configs
 import (
 	"log"
 
+	"github.com/muhammadderic/hrms/migrate"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -18,6 +19,9 @@ func ConnectDB() {
 	if err != nil {
 		panic(err)
 	}
+
+	// Run the migrations
+	migrate.Migrate(db)
 
 	// Log the successful connection
 	log.Println("Database connected successfully")
