@@ -55,7 +55,27 @@ func (h *EmployeeHandler) GetEmployee(c *gin.Context) {
 }
 
 func (h *EmployeeHandler) UpdateEmployee(c *gin.Context) {
+	id := c.Param("id")
+	var user models.UserPayload
+
+	if !utils.BindJSON(c, &user) {
+		return
+	}
+
+	updatedUser, err := h.employeeStore.UpdateEmployee(id, user)
+	if !utils.HandleStoreError(c, err) {
+		return
+	}
+
+	c.JSON(http.StatusOK, updatedUser)
 }
 
 func (h *EmployeeHandler) DeleteEmployee(c *gin.Context) {
+	id := c.Param("id")
+
+	if !utils.HandleStoreError(c, h.employeeStore.DeleteEmployee(id)) {
+		return
+	}
+
+	c.Status(http.StatusNoContent)
 }
