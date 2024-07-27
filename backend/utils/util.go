@@ -43,3 +43,22 @@ func SendError(
 
 	c.JSON(status, res)
 }
+
+func HandleStoreError(c *gin.Context, err error) bool {
+	if err != nil {
+		c.JSON(
+			http.StatusInternalServerError,
+			gin.H{"error": err.Error()},
+		)
+		return false
+	}
+	return true
+}
+
+func HandleNotFoundError(c *gin.Context, err error, message string) bool {
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": message})
+		return false
+	}
+	return true
+}
